@@ -1,31 +1,31 @@
-# Multimodal Realtime App with Gemini 2.0 by Next.js Framework
+# OutfitBuddy - Your AI Fashion Assistant
 
-A demonstration project showing how to build a realtime multimodal application using Google's Gemini 2.0 API and Next.js. This app can process audio, video, and generate transcripts in realtime.
+![OutfitBuddy Interface](screenshot.png)
 
-![Watch Demo Video](./thumbnail.jpg)
+OutfitBuddy is an innovative AI-powered fashion assistant that provides personalized style advice through interactive video chat. Using advanced computer vision and natural language processing, OutfitBuddy can see and analyze your outfits in real-time to offer tailored fashion recommendations.
 
-[Watch the Tutorial Video](https://youtu.be/YUfer6xyExY)
+## ✨ Features
 
-## Features
+- **Real-time Video Chat**: Interactive video communication with your AI fashion assistant
+- **Live Style Analysis**: AI can see and analyze your current outfit in real-time
+- **Personalized Recommendations**: Get customized fashion advice based on your style preferences
+- **Occasion-based Styling**: Receive outfit suggestions for specific events or occasions
+- **Interactive Chat Interface**: Seamless conversation flow with your AI stylist
+- **Voice & Video Support**: Multi-modal interaction for a natural experience
 
-- Realtime audio/video(image) interaction with Gemini 2.0 Multimodal Live API
-- Live transcription by Gemini 1.5/2.0 GenerativeAI API
-- Built with Next.js for optimal performance
+## 🚀 Getting Started
 
-## Architecture
+### Prerequisites
 
-![Block Diagram](./diagram.jpg)
+- Node.js 18+ 
+- npm or yarn
+- Webcam and microphone for video chat functionality
 
-## Prerequisites
-
-- Node.js 18+ installed
-- API key for Gemini 2.0 Model
-
-## Getting Started
+### Installation
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yeyu2/gemini-nextjs.git
+git clone https://github.com/yourusername/gemini-videochat.git
 cd gemini-nextjs
 ```
 
@@ -40,9 +40,11 @@ yarn install
 ```bash
 cp .env.example .env.local
 ```
-Add your Gemini API key to `.env.local`:
-```
-GEMINI_API_KEY=your_api_key_here
+
+Add your API keys to `.env.local`:
+```env
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+# Add other required environment variables
 ```
 
 4. Run the development server
@@ -52,6 +54,76 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+## 🎯 How It Works
 
+1. **Start a Session**: Click to begin your style consultation
+2. **Enable Camera**: Allow OutfitBuddy to see your current outfit
+3. **Chat Naturally**: Ask questions about your style, upcoming events, or fashion advice
+4. **Get Recommendations**: Receive personalized suggestions based on what you're wearing
+5. **Real-time Analysis**: OutfitBuddy continuously analyzes your appearance for better advice
+
+## 💡 Usage Examples
+
+- "What's the occasion you're dressing for?"
+- "Is it a daytime or nighttime event?"
+- "How does this outfit look for a business meeting?"
+- "Can you suggest accessories for this look?"
+- "What colors would work better with this outfit?"
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js, React, TypeScript
+- **AI Integration**: Google Gemini API
+- **Styling**: Tailwind CSS
+- **Video/Audio**: WebRTC, MediaDevices API
+- **Real-time Communication**: WebSockets
+
+## 📁 Project Structure
+
+```
+gemini-nextjs/
+├── components/          # React components
+├── pages/              # Next.js pages
+├── styles/             # CSS and styling files
+├── utils/              # Utility functions
+├── public/             # Static assets
+├── types/              # TypeScript type definitions
+└── README.md           # Project documentation
+```
+
+## 🔧 Configuration
+
+### Camera and Microphone Setup
+
+Ensure your browser has permission to access:
+- Camera (for outfit analysis)
+- Microphone (for voice interaction)
+
+### API Configuration
+
+Configure your Gemini API settings in the environment variables for optimal performance.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙋‍♀️ Support
+
+If you have any questions or need support, feel free to:
+- Open an issue in this repository
+- Contact the development team
+- Check out our documentation
+
+---
+
+**Ready to look amazing?** Start your style journey with OutfitBuddy today! 👗✨
