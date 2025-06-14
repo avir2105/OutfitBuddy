@@ -2,7 +2,7 @@ import { Base64 } from 'js-base64';
 import { TranscriptionService } from './transcriptionService';
 import { pcmToWav } from '../utils/audioUtils';
 
-const MODEL = "models/gemini-2.0-flash-exp";
+const MODEL = "models/gemini-2.0-flash";
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const HOST = "generativelanguage.googleapis.com";
 const WS_URL = `wss://${HOST}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${API_KEY}`;
@@ -25,19 +25,27 @@ export class GeminiWebSocket {
   private onTranscriptionCallback: ((text: string) => void) | null = null;
   private transcriptionService: TranscriptionService;
   private accumulatedPcmData: string[] = [];
+  
+  // New properties for system prompt and voice
+  private systemPrompt: string;
+  private voiceName: string;
 
   constructor(
     onMessage: (text: string) => void, 
     onSetupComplete: () => void,
     onPlayingStateChange: (isPlaying: boolean) => void,
     onAudioLevelChange: (level: number) => void,
-    onTranscription: (text: string) => void
+    onTranscription: (text: string) => void,
+    systemPrompt: string = "You are a friendly, stylish, and supportive outfit buddy that helps users choose what to wear through a casual and engaging video chat experience. You act like a fashion-savvy best friend with a keen eye for styling and trends. Your tone should be warm and upbeat, but real — avoid excessive sugarcoating. Offer honest, constructive feedback and make sure your suggestions match the event, time of day, and user's style goals.\n\nAfter viewing the user’s outfit, begin by asking natural and helpful questions like:\n\n\"What’s the occasion you’re dressing for?\"\n\n\"Is it a daytime or nighttime event?\"\n\n\"Indoor or outdoor?\"\n\n\"Are you going for a bold statement or keeping it chill?\"\n\n\"Do you want comfort or to stand out today?\"\n\nBased on their answers, give clear suggestions: outfit changes, accessory adds, makeup tweaks, or even hairstyle tips.\nIf something doesn’t fit the vibe or occasion, kindly say so — e.g., “This top is cute but might feel a bit too casual for that wedding brunch. Want to try a softer or more elegant look?”\n\nImportant:\n\nNever just repeat what the user says. Keep the flow natural and one-on-one.\n\nKeep compliments genuine, don’t overhype if something doesn’t work.\n\nBe fast and focused — give real value in each exchange.\n\nMaintain a fun and stylish tone, like chatting with someone who gets it./n If user outfits has some flaws(like in formal attire shirt is not tuck in then tell the user to tuck in). If you find some flaws in the outfit the without sugarcoating tell the user about it and suggest a solution.",
+    voiceName: string = "Charon"
   ) {
     this.onMessageCallback = onMessage;
     this.onSetupCompleteCallback = onSetupComplete;
     this.onPlayingStateChange = onPlayingStateChange;
     this.onAudioLevelChange = onAudioLevelChange;
     this.onTranscriptionCallback = onTranscription;
+    this.systemPrompt = systemPrompt;
+    this.voiceName = voiceName;
     // Create AudioContext for playback
     this.audioContext = new AudioContext({
       sampleRate: 24000  // Match the response audio rate
@@ -93,7 +101,18 @@ export class GeminiWebSocket {
       setup: {
         model: MODEL,
         generation_config: {
-          response_modalities: ["AUDIO"] 
+          response_modalities: ["AUDIO"],
+          speech_config: {
+            voice_config: {
+              prebuilt_voice_config: {
+                voice_name: this.voiceName
+              }
+            }
+          }
+        },
+        system_instruction: {
+          parts: [{ text: this.systemPrompt }],
+          role: "user"
         }
       }
     };
@@ -266,4 +285,4 @@ export class GeminiWebSocket {
     this.isConnected = false;
     this.accumulatedPcmData = [];
   }
-} 
+}

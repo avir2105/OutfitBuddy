@@ -262,14 +262,14 @@ export default function CameraPreview({ onTranscription }: CameraPreviewProps) {
   return (
     <div className="h-full flex flex-col">
       {/* Video Container */}
-      <div className="flex-1 relative bg-slate-900 rounded-xl overflow-hidden">        {/* Video Element */}
+      <div className="flex-1 relative bg-slate-900 rounded-xl overflow-hidden">
+        {/* Video Element */}
         <video
           ref={videoRef}
           autoPlay
           playsInline
           muted
-          className={`w-full h-full object-contain ${!isStreaming ? 'hidden' : ''}`}
-          style={{ transform: 'scaleX(-1)' }}
+          className={`w-full h-full object-cover ${!isStreaming ? 'hidden' : ''}`}
         />
 
         {/* Camera Off State */}
